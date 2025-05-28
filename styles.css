@@ -89,6 +89,7 @@ main article {
 .animal-card-photo{
     min-width: 200px;
     overflow: hidden;
+    flex-basis: 200px;
 }
 
 .animal-card-photo img{
@@ -109,7 +110,7 @@ main article:hover img{
     border-style: solid;
     border-color: rgb(145,22,147);
     text-decoration: none;
-    color: rgb(145,22,147)
+    color: rgb(145,22,147);
     border-radius: 5px;
 }
 
@@ -117,5 +118,6 @@ main article:hover img{
     border-radius: 10px;
     background: linear-gradient(to right,rgb(145,22,147),rgb(179, 72, 189));
     border:linear-gradient(to right,rgb(145,22,147),rgb(179, 72, 189));
+    color: white;
     
 }
