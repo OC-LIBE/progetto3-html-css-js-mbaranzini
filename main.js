@@ -6,11 +6,24 @@ async function getPetsData() {
     return petsData;
 }
 
+function calcAge(date_of_birth){
+    const t =  new Date();
+    const current_year = t.getFullYear();
+    const age = current_year - date_of_birth;
+    return age
+}
+
+function capitalize(val) {
+    return val.charAt(0).toUpperCase() + val.slice(1);
+}
+
 async function displayPets() {
 
     const pets = await getPetsData();
     const template = document.querySelector("#animal-card-template");
     const wrapper = document.querySelector("main");
+    console.log(pets);
+    
 
     pets.forEach( pet =>{
         const clone = template.content.cloneNode(true);
@@ -24,11 +37,28 @@ async function displayPets() {
         const text = clone.querySelector(".animal-card-text p");
         text.textContent = pet.description;
 
-        const age = clone.querySelector(".animal-card-text small span");
-        age.textContent = pet.birthYear; //attento
+        const age = clone.querySelector(".Age");
+        const Age = calcAge(pet.birthYear);
+        if (Age < 1) {
+            age.textContent = "Less than one year old";
+        }
+        else if (Age == 1) {
+            age.textContent = `${Age} year old`
+        }
+        else {
+            age.textContent = `${Age} years old`
+        }
         
+        const specie = clone.querySelector(".Specie");
+        specie.textContent = capitalize(pet.species);
+        
+        const link = clone.querySelector(".adopt-button");
+        link.href = `${website}/pets/${pet.id}/`;
+        
+        const name2 = clone.querySelector(".adopt-button");
+        name2.textContent = `Adopt ${pet.name}`
 
-
+        
         wrapper.appendChild(clone)
     });
 }
