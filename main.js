@@ -22,9 +22,7 @@ async function displayPets() {
     const pets = await getPetsData();
     const template = document.querySelector("#animal-card-template");
     const wrapper = document.querySelector("main");
-    console.log(pets);
     
-
     pets.forEach( pet =>{
         const clone = template.content.cloneNode(true);
 
@@ -56,11 +54,37 @@ async function displayPets() {
         link.href = `${website}/pets/${pet.id}/`;
         
         const name2 = clone.querySelector(".adopt-button");
-        name2.textContent = `Adopt ${pet.name}`
+        name2.textContent = `Adopt ${pet.name}`;
 
         
         wrapper.appendChild(clone)
     });
 }
 
-displayPets()
+displayPets();
+
+function displayFiltersAnimal(e) {
+    let petsArticles = document.querySelectorAll("article")
+
+    for (let index=0; index < petsArticles.length; index++) {
+        let petsArticle = petsArticles[index];
+
+        const small= petsArticle.querySelectorAll(".animal-card-text small span");
+
+        if (e.target.dataset.filterAnimal == "All") {
+            petsArticle.style.display = "flex"
+        } else if(small[1].textContent != e.target.dataset.filterAnimal) {
+            petsArticle.style.display = "none"
+        } else {
+            petsArticle.style.display = "flex"
+        }
+
+}}
+
+const filterButton = document.querySelectorAll("nav button");
+
+filterButton.forEach(button => {
+    button.addEventListener("click", (e) => {
+        displayFiltersAnimal(e);
+    });
+});
